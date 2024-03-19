@@ -68,6 +68,9 @@ class TestWaypointsActionServer(unittest.TestCase):
         y_error = abs(self.destination_position.position.y - self.current_position.y)
 
         self.assertTrue(x_error and y_error <= self.dist_precision)
+        #Uncomment to fail
+        #self.assertTrue(False)
+
 
     def test_robot_end_orientation(self):
         self.assertTrue(self.action_result)
@@ -76,6 +79,9 @@ class TestWaypointsActionServer(unittest.TestCase):
         yaw_error = abs(yaw - self.quaternion_to_euler(self.current_orientation))
 
         self.assertTrue(yaw_error <= self.yaw_precision)
+        #Uncomment to fail
+        #self.assertTrue(False)
+
 
 if __name__ == '__main__':
     rostest.rosrun(PKG, NAME, TestWaypointsActionServer)
