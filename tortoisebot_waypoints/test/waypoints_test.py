@@ -59,11 +59,11 @@ class TestWaypointsActionServer(unittest.TestCase):
         self.action_client.send_goal(self.destination_position)
         self.action_client.wait_for_result(rospy.Duration(60))
 
-        #Comment to fail
+        #Uncomment to succeed
         self.action_result = self.action_client.get_result()
 
         #Uncomment to fail
-        #self.action_result = False
+        # self.action_result = False
 
     def test_robot_end_position(self):
         self.assertTrue(self.action_result)
