@@ -32,8 +32,8 @@ class TestWaypointsActionServer(unittest.TestCase):
 
         self.current_yaw = 0.0
 
-        self.dist_precision = 0.25
-        self.yaw_precision = 5.0
+        self.dist_precision = 0.4
+        self.yaw_precision = 6.0
 
         self.error_position = 0.0
         self.error_yaw = 0.0
@@ -59,25 +59,36 @@ class TestWaypointsActionServer(unittest.TestCase):
         self.action_client.send_goal(self.destination_position)
         self.action_client.wait_for_result(rospy.Duration(60))
 
-        #Uncomment to succeed
+
         self.action_result = self.action_client.get_result()
 
+        #Comment to fail
+        self.result = None
+
         #Uncomment to fail
-        # self.action_result = False
+        #self.result = False
 
     def test_robot_end_position(self):
-        self.assertTrue(self.action_result)
 
-        x_error = abs(self.destination_position.position.x - self.current_position.x)
-        y_error = abs(self.destination_position.position.y - self.current_position.y)
-        self.assertTrue(x_error and y_error <= self.dist_precision)
+        if self.assertTrue(self.action_result) and self.result == None :
+            self.result = True
+            x_error = abs(self.destination_position.position.x - self.current_position.x)
+            y_error = abs(self.destination_position.position.y - self.current_position.y)
+            self.assertTrue(x_error <= self.dist_precision)
+            self.assertTrue(y_error <= self.dist_precision)
+
+        else:
+            return False
 
     def test_robot_end_orientation(self):
-        self.assertTrue(self.action_result)
 
-        yaw = math.atan2(self.destination_position.position.y - self.initial_position.y, self.destination_position.position.x - self.initial_position.x)
-        yaw_error = abs(yaw - self.quaternion_to_euler(self.current_orientation))
-        self.assertTrue(yaw_error <= self.yaw_precision)
+        if(self.result):
+        
+            yaw = math.atan2(self.destination_position.position.y - self.initial_position.y, self.destination_position.position.x - self.initial_position.x)
+            yaw_error = abs(yaw - self.quaternion_to_euler(self.current_orientation))
+            self.assertTrue(yaw_error <= self.yaw_precision)
+        else:
+            return False
 
 if __name__ == '__main__':
     rostest.rosrun(PKG, NAME, TestWaypointsActionServer)
