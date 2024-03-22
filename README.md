@@ -1,7 +1,7 @@
 # Go to catkin_ws 
 ```
 cd ~/catkin_ws/src
-git clone https://github.com/Combuster54/tortoisebot_waypoints_ros1
+git clone https://github.com/Combuster54/tortoisebot_waypoints_ros1 tortoisebot_waypoints
 ```
 ## Build catkin_ws
 ```
