@@ -16,7 +16,7 @@ rostest tortoisebot_waypoints waypoints_test.test
 ```
 #Failed test
  - Go to test folder and inside waypoint_test.py uncomment and comment these lines
-![image](https://github.com/Combuster54/tortoisebot_waypoints_ros1/assets/98191055/3673c7be-f6d7-4249-887c-b89465aac4d9)
+![image](https://github.com/Combuster54/tortoisebot_waypoints_ros1/assets/98191055/06f909ce-7d67-403d-94f0-aedcf5e18607)
    
  - to:
 ![image](https://github.com/Combuster54/tortoisebot_waypoints_ros1/assets/98191055/e91d3abe-cfc7-425a-a38c-0d679bf232e0)
