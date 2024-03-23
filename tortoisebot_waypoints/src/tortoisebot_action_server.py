@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python
 import rospy
 import time
 import actionlib
@@ -10,7 +10,7 @@ from geometry_msgs.msg import Twist, Point
 from nav_msgs.msg import Odometry
 from tf import transformations
 import math
-
+import time
 class WaypointActionClass(object):
 
     # create messages that are used to publish feedback/result
@@ -30,8 +30,8 @@ class WaypointActionClass(object):
     # goal
     _des_pos = Point()
     # parameters
-    _yaw_precision = math.pi / 30 # +/- 2 degree allowed
-    _dist_precision = 0.15
+    _yaw_precision = math.pi / 90 # +/- 2 degree allowed
+    _dist_precision = 0.05
 
     def __init__(self):
         # creates the action server
@@ -91,14 +91,14 @@ class WaypointActionClass(object):
                 rospy.loginfo("fix yaw")
                 self._state = 'fix yaw'
                 twist_msg = Twist()
-                twist_msg.angular.z = 0.65 if err_yaw > 0 else -0.65
+                twist_msg.angular.z = 0.15 if err_yaw > 0 else -0.15
                 self._pub_cmd_vel.publish(twist_msg)
             else:
                 # go to point
                 rospy.loginfo("go to point")
                 self._state = 'go to point'
                 twist_msg = Twist()
-                twist_msg.linear.x = 0.6
+                twist_msg.linear.x = 0.3
                 twist_msg.angular.z = 0
                 # twist_msg.angular.z = 0.1 if err_yaw > 0 else -0.1
                 self._pub_cmd_vel.publish(twist_msg)
@@ -116,7 +116,7 @@ class WaypointActionClass(object):
         twist_msg.linear.x = 0
         twist_msg.angular.z = 0
         self._pub_cmd_vel.publish(twist_msg)
-        
+
         # return success
         if success:
             self._result.success = True

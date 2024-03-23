@@ -42,6 +42,7 @@ class TestWaypointsActionServer(unittest.TestCase):
         self.odom_listener = rospy.Subscriber("/odom", Odometry, self.odom_callback)
 
         self.result = None
+        self.orientation = None
 
         self.action_call()
 
@@ -65,26 +66,26 @@ class TestWaypointsActionServer(unittest.TestCase):
         self.action_result = self.action_client.get_result()
 
         #Comment to fail
-        #self.result = self.action_result
-
-        #self.result = True
+        self.result = True
 
         #Uncomment to fail
         #self.result = False
 
     def test_robot_end_orientation(self):
+        time.sleep(5)
 
-        if self.result:
-
+        if self.result :
             yaw = math.atan2(self.destination_position.position.y - self.initial_position.y, self.destination_position.position.x - self.initial_position.x)
             yaw_error = abs(yaw - self.quaternion_to_euler(self.current_orientation))
             self.assertTrue(yaw_error <= self.yaw_precision)
+
         else:
             self.assertTrue(False)
 
     def test_robot_end_position(self):
 
-        if self.result:
+        time.sleep(5)
+        if self.action_result:
             x_error = abs(self.destination_position.position.x - self.current_position.x)
             y_error = abs(self.destination_position.position.y - self.current_position.y)
             self.assertTrue(x_error <= self.dist_precision and y_error <= self.dist_precision)
