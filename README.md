@@ -15,12 +15,15 @@ catkin_make && source devel/setup.bash
 rostest tortoisebot_waypoints waypoints_test.test
 ```
 #Failed test
+
  - Go to test folder and inside waypoint_test.py uncomment and comment these lines
-   ![image](https://github.com/Combuster54/tortoisebot_waypoints_ros1/assets/98191055/5ccd27b3-862d-428f-9a21-981d801b42ba)
+
+![image](https://github.com/Combuster54/tortoisebot_waypoints_ros1/assets/98191055/06f909ce-7d67-403d-94f0-aedcf5e18607)
    
  - to:
- - 
-   ![image](https://github.com/Combuster54/tortoisebot_waypoints_ros1/assets/98191055/73d547a6-71fa-48dd-a2ed-82dd14488041)
+
+![image](https://github.com/Combuster54/tortoisebot_waypoints_ros1/assets/98191055/e91d3abe-cfc7-425a-a38c-0d679bf232e0)
+
    
  - Then run the test again
 ```
