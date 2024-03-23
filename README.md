@@ -19,8 +19,8 @@ rostest tortoisebot_waypoints waypoints_test.test
 ![image](https://github.com/Combuster54/tortoisebot_waypoints_ros1/assets/98191055/3673c7be-f6d7-4249-887c-b89465aac4d9)
    
  - to:
- - 
-![Uploading image.png…]()
+![image](https://github.com/Combuster54/tortoisebot_waypoints_ros1/assets/98191055/e91d3abe-cfc7-425a-a38c-0d679bf232e0)
+
    
  - Then run the test again
 ```
