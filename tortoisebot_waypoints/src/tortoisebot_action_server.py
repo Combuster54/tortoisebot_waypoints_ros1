@@ -30,8 +30,8 @@ class WaypointActionClass(object):
     # goal
     _des_pos = Point()
     # parameters
-    _yaw_precision = math.pi / 90 # +/- 2 degree allowed
-    _dist_precision = 0.05
+    _yaw_precision = math.pi / 30 # +/- 2 degree allowed
+    _dist_precision = 0.15
 
     def __init__(self):
         # creates the action server
@@ -116,7 +116,7 @@ class WaypointActionClass(object):
         twist_msg.linear.x = 0
         twist_msg.angular.z = 0
         self._pub_cmd_vel.publish(twist_msg)
-
+        
         # return success
         if success:
             self._result.success = True

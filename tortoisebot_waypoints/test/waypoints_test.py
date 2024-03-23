@@ -10,6 +10,7 @@ import actionlib
 from geometry_msgs.msg import Point, Quaternion
 from tortoisebot_waypoints_interface.msg import WaypointActionAction, WaypointActionGoal
 import tf.transformations as tf
+import time
 
 PKG = 'tortoisebot_waypoints'
 NAME = 'waypoints_test'
@@ -40,6 +41,8 @@ class TestWaypointsActionServer(unittest.TestCase):
 
         self.odom_listener = rospy.Subscriber("/odom", Odometry, self.odom_callback)
 
+        self.result = None
+
         self.action_call()
 
     def odom_callback(self, msg):
@@ -59,36 +62,35 @@ class TestWaypointsActionServer(unittest.TestCase):
         self.action_client.send_goal(self.destination_position)
         self.action_client.wait_for_result(rospy.Duration(60))
 
-
         self.action_result = self.action_client.get_result()
 
         #Comment to fail
-        self.result = None
+        #self.result = self.action_result
+
+        #self.result = True
 
         #Uncomment to fail
         #self.result = False
 
-    def test_robot_end_position(self):
-
-        if self.assertTrue(self.action_result) and self.result == None :
-            self.result = True
-            x_error = abs(self.destination_position.position.x - self.current_position.x)
-            y_error = abs(self.destination_position.position.y - self.current_position.y)
-            self.assertTrue(x_error <= self.dist_precision)
-            self.assertTrue(y_error <= self.dist_precision)
-
-        else:
-            return False
-
     def test_robot_end_orientation(self):
 
-        if(self.result):
-        
+        if self.result:
+
             yaw = math.atan2(self.destination_position.position.y - self.initial_position.y, self.destination_position.position.x - self.initial_position.x)
             yaw_error = abs(yaw - self.quaternion_to_euler(self.current_orientation))
             self.assertTrue(yaw_error <= self.yaw_precision)
         else:
-            return False
+            self.assertTrue(False)
+
+    def test_robot_end_position(self):
+
+        if self.result:
+            x_error = abs(self.destination_position.position.x - self.current_position.x)
+            y_error = abs(self.destination_position.position.y - self.current_position.y)
+            self.assertTrue(x_error <= self.dist_precision and y_error <= self.dist_precision)
+        else:
+            self.assertTrue(False)
+
 
 if __name__ == '__main__':
     rostest.rosrun(PKG, NAME, TestWaypointsActionServer)
