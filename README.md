@@ -5,7 +5,7 @@ git clone https://github.com/Combuster54/tortoisebot_waypoints_ros1 tortoisebot_
 ```
 ## Build simulation_ws
 ```
-cd ~/catkin_ws
+cd ~/simulation_ws
 catkin_make && source devel/setup.bash
 ```
 
